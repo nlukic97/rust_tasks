@@ -177,11 +177,13 @@ fn main() {
 
     // let else - partally working but can't handle error
     /* fn test() -> Option<i32> {
-        let some_option = Some(5);
+        // let some_option = None;
+        let some_option = Some(4);
         let Some(4) = some_option else {
-            return Err("The option was none");
+            return None;
         };
         some_option
     }
-    test(); */
+    let res = test();
+    println!("{:?}", res); */
 }
