@@ -186,4 +186,38 @@ fn main() {
     }
     let res = test();
     println!("{:?}", res); */
+    // ------------------------------------------------------------------
+
+    // Examples from magnusi
+    /* fn test() -> Result<Option<i32>, String> {
+        // let some_option = None;
+        let some_option = Some(4);
+        let Some(4) = some_option else {
+            return Err("value does not match".into());
+        };
+        Ok(some_option)
+    }
+
+    fn test2() -> Option<i32> {
+        // let some_option = None;
+        let some_option = Some(4);
+        let num @ Some(4) = some_option else {
+            return None;
+        };
+        num
+    }
+
+    fn test2_simplified() -> Option<i32> {
+        let some_option = Some(4);
+        some_option.filter(|num| *num == 4)
+    }
+
+    fn test3() -> Result<i32, String> {
+        // let some_option = None;
+        let some_option = Some(4);
+        let Some(num @ 4) = some_option else {
+            return Err("value does not match".into());
+        };
+        Ok(num)
+    } */
 }
