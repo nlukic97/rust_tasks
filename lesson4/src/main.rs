@@ -158,4 +158,30 @@ fn main() {
 
     // continue from here:
     // https://robot-dreams-rust.mag.wiki/4-structs-enums-patterns/index.html#4-advanced-control-flow
+
+    // if  - don't really get this
+    /* let some_option: Option<i32> = Some(5);
+       if let Some(x) = some_option {
+           println!("Value inside Some: {}", x);
+       } else {
+           println!("It was None!");
+       }
+
+       // while let
+       let mut stack = vec![1, 2, 3];
+       while let Some(top) = stack.pop() {
+           println!("{}", top);
+       }
+    */
+    // ------------------------------------------------------------------
+
+    // let else - partally working but can't handle error
+    /* fn test() -> Option<i32> {
+        let some_option = Some(5);
+        let Some(4) = some_option else {
+            return Err("The option was none");
+        };
+        some_option
+    }
+    test(); */
 }
