@@ -110,4 +110,5 @@ fn main() {
     println!("Value if array at index 4: {ans:?}")
 
     // https://www.dropbox.com/scl/fi/7tlhvg0835y86zi54i9lm/Lecture-5.MP4?rlkey=kkzoq6xq9246meb5316zi33kq&e=1&st=84ijzbfy&dl=0 - from: 19:13
+    // https://robot-dreams-rust.mag.wiki/5-error-handling/index.html#3-the--operator-and-the-option-type notes.
 }
