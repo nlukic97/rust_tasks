@@ -1,4 +1,3 @@
-#![allow(unconditional_panic, arithmetic_overflow)]
 fn main() {
     fn division(dividend: f64, divisor: f64) -> Result<f64, &'static str> {
         if divisor == 0.0 {
@@ -146,6 +145,31 @@ fn main() {
         panic!("It's time to {}", "panick!");
     } */
 
+    //  ----------------------------------------
+
     // continue from 32:00
     // https://www.dropbox.com/scl/fi/7tlhvg0835y86zi54i9lm/Lecture-5.MP4?authuser=0&rlkey=kkzoq6xq9246meb5316zi33kq&e=1&st=84ijzbfy&dl=0
+    /* let input = 31;
+
+    let x = match input {
+        1 | 5 => true,
+        2 => false,
+        _ => unreachable!("this will never happend"),
+    };
+
+    println!("{x}"); */
+    //  ----------------------------------------
+
+    /* assert_ne!(1, 1);
+    assert_eq!(1, 2);
+    assert!(false); */
 }
+
+/* impl Rectangle {
+    fn area(&self) -> u32 {
+        panic!();
+        unimplemented!();
+        unreachable!();
+        todo!();
+    }
+} */
