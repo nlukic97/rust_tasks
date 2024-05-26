@@ -1,3 +1,4 @@
+#![allow(unconditional_panic, arithmetic_overflow)]
 fn main() {
     fn division(dividend: f64, divisor: f64) -> Result<f64, &'static str> {
         if divisor == 0.0 {
@@ -104,11 +105,47 @@ fn main() {
     //  ----------------------------------------
     // watching video
 
-    let arr = [1, 2, 3];
+    /* let arr = [1, 2, 3];
     let ans = arr.get(4);
 
-    println!("Value if array at index 4: {ans:?}")
+    println!("Value if array at index 4: {ans:?}") */
 
-    // https://www.dropbox.com/scl/fi/7tlhvg0835y86zi54i9lm/Lecture-5.MP4?rlkey=kkzoq6xq9246meb5316zi33kq&e=1&st=84ijzbfy&dl=0 - from: 19:13
-    // https://robot-dreams-rust.mag.wiki/5-error-handling/index.html#3-the--operator-and-the-option-type notes.
+    //  ----------------------------------------
+    // video from about 19:00 mnutes
+
+    /* let some_option: Option<i32> = Some(32);
+    let number = some_option.unwrap(); // will be fine
+    println!("{number:?}");
+
+    let some_option2: Option<i32> = None;
+    let number2 = some_option2.expect("some_option2 was none"); // option .unwrap on none value, will panick but with msg
+    println!("{number2:?}");
+
+    let number2 = some_option2.unwrap(); // option .unwrap on none value, will panic
+    println!("{number2:?}"); */
+
+    //  ----------------------------------------
+
+    /* let another_option: Result<(), &'static str> = Err("hi");
+    let number: () = another_option.expect("Expected some value"); // --will panic with: Expected some value: "hi". So prints expect value and err */
+
+    //  ----------------------------------------
+
+    /* let a: u8 = 250;
+    let b: u8 = 10;
+    // let sum: u8 = a + b; // will panic in debug mode due to arythmetic overflow
+    let sum: u8 = a.wrapping_add(b); // will allow overflow and wrap around it, so this will be 4
+    let sum: u8 = a.saturating_add(b); // keep biggest value possible
+
+    println!("{sum}"); */
+    //  ----------------------------------------
+
+    // explicitly clling panick!
+
+    /* if true == true {
+        panic!("It's time to {}", "panick!");
+    } */
+
+    // continue from 32:00
+    // https://www.dropbox.com/scl/fi/7tlhvg0835y86zi54i9lm/Lecture-5.MP4?authuser=0&rlkey=kkzoq6xq9246meb5316zi33kq&e=1&st=84ijzbfy&dl=0
 }
