@@ -1,3 +1,14 @@
+/* impl Rectangle {
+    fn area(&self) -> u32 {
+        panic!();
+        unimplemented!();
+        unreachable!();
+        todo!();
+    }
+} */
+
+use std::panic;
+
 fn main() {
     fn division(dividend: f64, divisor: f64) -> Result<f64, &'static str> {
         if divisor == 0.0 {
@@ -160,16 +171,147 @@ fn main() {
     println!("{x}"); */
     //  ----------------------------------------
 
-    /* assert_ne!(1, 1);
-    assert_eq!(1, 2);
-    assert!(false); */
-}
+    /* // assert!(1 == 2, "the assert! did not work, 1 is not the same as 2");
+    //  assert_ne!(1, 1);
+    // assert_eq!(1, 2);
+    // assert!(false); */
 
-/* impl Rectangle {
-    fn area(&self) -> u32 {
-        panic!();
-        unimplemented!();
-        unreachable!();
-        todo!();
+    //  ----------------------------------------
+    // black magic on how to catch panics - one case where this was necessary. Written by someone who didn't know how to return a result so this was good for that
+    /* let result = panic::catch_unwind(|| {
+        println!("About to panic...");
+        panic!("The panic happens here inside the catch_unwind block");
+        println!("This line will not be executed");
+    });
+
+    match result {
+        Ok(_) => println!("Successfully executed without panic"),
+        Err(_) => println!("Caught a panick"),
+    } */
+
+    //  ----------------------------------------
+
+    /* let ok_value: Result<_, &str> = Ok(42); // _ means - hey rust, i think you can figure this out
+    let err_value: Result<i32, &str> = Err("An error occured");
+
+    match err_value {
+        Ok(value) => println!("is ok. {value}"),
+        Err(error) => println!("is an error. {error}"),
     }
-} */
+
+    if let Ok(value) = ok_value {
+        println!("The value is ok: here it is {}", value);
+    } else {
+        println!("An error occurred.");
+    } */
+
+    //  ----------------------------------------
+
+    // notice the boxed state object. Error types
+    /* fn wrapper_function() -> Result<i32, Box<dyn std::error::Error>> {
+        let value = error_prone_function()?; // this is kind of like matching. if its good return value, if not return error
+
+        Ok(value)
+    }
+
+    fn error_prone_function() -> Result<i32, &'static str> {
+        Err("This function always errors out!")
+    }
+
+    match wrapper_function() {
+        Ok(value) => println!("Received value: {}", value),
+        Err(e) => println!("An error occurred: {:?}", e),
+    } */
+
+    //  ----------------------------------------
+
+    // trying on my own
+    /* fn error_prone_function() -> Result<i32, &'static str> {
+        // Ok(32) // this will mean its okay
+        Err("Error caused in error prone function")
+    }
+
+    fn wrapper_function() -> Result<i32, Box<dyn std::error::Error>> {
+        let value = error_prone_function()?;
+        Ok(value)
+    }
+
+    let value = wrapper_function();
+    match value {
+        Ok(value) => println!("The value is ok. Here it is: {}", value),
+        Err(error) => println!("An error has been caught: {}", error),
+    } */
+
+    //  ----------------------------------------
+
+    /* // mapping and chaining
+    let x: Result<i32, &str> = Ok(2);
+
+    // option 1
+    let y = x.map(|v| (v * 2) as f32);
+
+    // or like underneath
+    // let y = x.map(|v| double(v));
+    // fn double(x: i32) -> i32 {
+    //     x * 2
+    // }
+
+    assert_eq!(y, Ok(4.0), "is good"); */
+
+    //  ----------------------------------------
+
+    /* // use unwrap_or if the default value allocation is cheap...
+    let err: Result<i32, &str> = Err("This is an error");
+    println!("This might be Ok or Err: {}", err.unwrap_or(0));
+
+    let ok: Result<i32, &str> = Ok(32);
+    println!("This might be Ok or Err: {}", ok.unwrap_or(0));
+
+    // otherwise use unwrap_or_else. good for side effects, and if you don't want to waste cpu cycles on smt
+    let err2: Result<i32, &str> = Err("This is an error in err2");
+    let value = err2.unwrap_or_else(|err| {
+        println!("Error encountered:{}", err);
+        0
+    });
+
+    assert_eq!(value, 0); */
+
+    //  ----------------------------------------
+    // didn't get this part 100%
+
+    /* let x: Result<i32, &str> = Err("This is an error");
+    let value: Result<_, &str> = x.or(Ok(0)); // difference between .unwrap_or and .or is that we can change the error typed. or returns Reuslt, it doesn't unwrap the value
+    assert_eq!(value, Ok(0)); */
+
+    //  ----------------------------------------
+
+    /* let x: Result<i32, &str> = Ok(2);
+
+    let y: Result<i32, &str> = Ok(100);
+
+    assert_eq!(x.and(y), Ok(100)); // replaces the OK type, it will be Ok(100)
+
+    let x: Result<i32, &str> = Ok(2);
+    let res = x.and_then(|v| {
+        // changes the error type, we can do something with the value of the Ok's value
+        if v > 1 {
+            Ok(v + 1)
+        } else {
+            Err("Value too small")
+        }
+    });
+
+    assert_eq!(res, Ok(3)); */
+
+    //  ----------------------------------------
+
+    // continue from 1:07:00
+    // https://www.dropbox.com/scl/fi/7tlhvg0835y86zi54i9lm/Lecture-5.MP4?rlkey=kkzoq6xq9246meb5316zi33kq&e=1&st=84ijzbfy&dl=0
+
+    // let x: Result<Option<i32>, &str> = Ok(Some(5));
+    let x: Result<Option<i32>, &str> = Err("this is an error");
+
+    let y: Option<Result<i32, &str>> = x.transpose();
+
+    assert_eq!(y, Some(Ok(5)));
+}
