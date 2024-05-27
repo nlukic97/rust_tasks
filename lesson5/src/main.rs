@@ -308,10 +308,11 @@ fn main() {
     // continue from 1:07:00
     // https://www.dropbox.com/scl/fi/7tlhvg0835y86zi54i9lm/Lecture-5.MP4?rlkey=kkzoq6xq9246meb5316zi33kq&e=1&st=84ijzbfy&dl=0
 
-    // let x: Result<Option<i32>, &str> = Ok(Some(5));
-    let x: Result<Option<i32>, &str> = Err("this is an error");
+    // takes result of an option and makes it into an Option of a esult
+    let x: Result<Option<i32>, &str> = Ok(Some(5));
+    assert_eq!(x, Ok(Some(5)));
 
+    // so this makes a switch
     let y: Option<Result<i32, &str>> = x.transpose();
-
     assert_eq!(y, Some(Ok(5)));
 }
