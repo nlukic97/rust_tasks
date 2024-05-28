@@ -15,34 +15,9 @@ fn main() {
         Err(error) => println!("Error: {}", error),
     }
 
-    update_input(&mut input, arg);
+    let updated_input = update_input(input.clone(), arg);
 
-    /* if arg == "lowercase" {
-        input = input.to_lowercase();
-    } else if arg == "uppercase" {
-        input = input.to_uppercase();
-    } else if arg == "no-spaces" {
-        input = input.replace(" ", "");
-    } else if arg == "slugify" {
-        input = slugify(input);
-    } else if arg == "mixup" {
-        let mut new_string = String::new();
-
-        for mut char in input.chars() {
-            if char.is_lowercase() {
-                char.make_ascii_uppercase();
-            } else if char.is_uppercase() {
-                char.make_ascii_lowercase();
-            }
-            new_string.push(char);
-        }
-
-        input = new_string;
-    } else if arg == "urgent-message" {
-        input = format!("Urgent message: {} !!!", &input.to_uppercase().trim());
-    } */
-
-    println!("{input}");
+    println!("{updated_input}");
 }
 
 fn read_input(mut input: &mut String) {
@@ -58,7 +33,7 @@ fn get_argument() -> Result<String, &'static str> {
     return Ok(arg.clone());
 }
 
-fn update_input(&mut input: &mut String, arg: String) {
+fn update_input(mut input: String, arg: String) -> String {
     if arg == "lowercase" {
         input = input.to_lowercase();
     } else if arg == "uppercase" {
@@ -83,4 +58,6 @@ fn update_input(&mut input: &mut String, arg: String) {
     } else if arg == "urgent-message" {
         input = format!("Urgent message: {} !!!", &input.to_uppercase().trim());
     }
+
+    return input;
 }
