@@ -305,14 +305,61 @@ fn main() {
 
     //  ----------------------------------------
 
-    // continue from 1:07:00
-    // https://www.dropbox.com/scl/fi/7tlhvg0835y86zi54i9lm/Lecture-5.MP4?rlkey=kkzoq6xq9246meb5316zi33kq&e=1&st=84ijzbfy&dl=0
-
-    // takes result of an option and makes it into an Option of a esult
+    /* // takes result of an option and makes it into an Option of a esult
     let x: Result<Option<i32>, &str> = Ok(Some(5));
     assert_eq!(x, Ok(Some(5)));
 
     // so this makes a switch
-    let y: Option<Result<i32, &str>> = x.transpose();
-    assert_eq!(y, Some(Ok(5)));
+    let y: Option<Result<i32, &str>> = x.transpose(); // none if original result was none, or oiginal ersult was an error
+    assert_eq!(y, Some(Ok(5))); */
+
+    //  ----------------------------------------
+    /* let some_value: Option<i32> = Some(5);
+
+    let none_value: Option<i32> = None;
+
+    for x in some_value.into_iter() {
+        println!("Got value from Some: {}", x);
+    }
+
+    for x in none_value.into_iter() {
+        println!("This won't be printed: {}", x);
+    } */
+
+    //  ----------------------------------------
+
+    /* let ok_result: Result<i32, &str> = Ok(5);
+
+    let err_result: Result<i32, &str> = Err("This is an error");
+
+    for x in ok_result.into_iter() {
+        println!("Got value from Some: {}", x);
+    }
+
+    for x in err_result.err().into_iter() {
+        // iterate over error
+        println!("Iterating over error - value: {}", x);
+    }
+
+    println!("The error value again: {}", err_result.err().unwrap());
+
+    for x in err_result.iter() {
+        // iterate over value
+        println!("This won't be printed: {}", x);
+    } */
+
+    //  ----------------------------------------
+
+    /* // - into_iter() - transferres ownership of the colletion
+    // - iter() - borrows the element immutably
+    // - iter_mut() - borrows the element muttably
+
+    let values = vec![Some(3), None, Some(6), Some(8)];
+
+    let squared: Vec<i32> = values
+        .into_iter()
+        .filter_map(|opt| opt.and_then(|x| if x > 5 { Some(x * x) } else { None }))
+        .collect();
+
+    println!("{:?}", squared); // Outputs: [36, 64] */
 }
