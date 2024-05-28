@@ -61,3 +61,15 @@ fn update_input(mut input: String, arg: String) -> String {
 
     return input;
 }
+
+/* fn main() {
+    let mut text = String::from("This is a string");
+
+    update_str(&mut text);
+
+    println!("Updated: {text}");
+}
+
+fn update_str(text: &mut String) {
+    *text = text.to_lowercase();
+} */
