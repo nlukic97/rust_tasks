@@ -3,20 +3,25 @@ use std::env;
 use std::io;
 
 fn main() {
-    println!("Please submit your string input:");
+    eprintln!("Please submit your string input:");
 
     let mut input = String::new();
     read_input(&mut input);
 
+    // TODO - format this
+    if input.trim() == "" {
+        return eprintln!("Error: No input entered");
+    }
+
     let arg_wrapped = get_argument();
 
     if arg_wrapped.is_err() {
-        return println!("Error: {}", arg_wrapped.unwrap_err());
+        return eprintln!("Error: {}", arg_wrapped.unwrap_err());
     }
 
     match format_input(input, arg_wrapped.unwrap()) {
-        Ok(value) => println!("{value}"),
-        Err(error) => println!("Error: {}", error),
+        Ok(value) => eprintln!("{value}"),
+        Err(error) => eprintln!("Error: {}", error),
     }
 }
 
