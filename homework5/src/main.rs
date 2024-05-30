@@ -6,6 +6,8 @@ fn main() {
     eprintln!("Please submit your string input:");
 
     let mut input = String::new();
+    // read_multi_line(input); // testing
+
     read_input(&mut input);
 
     // TODO - format this
@@ -66,3 +68,14 @@ fn format_input(input: String, arg: String) -> Result<String, &'static str> {
         &_ => return Err("Argument not found. Valid arguments: |lowercase|uppercase|no-spaces|slugify|urgent-message|mixup|"),
     };
 }
+
+// testing
+/* fn read_multi_line(mut input: String) {
+    while input != "end\n" {
+        println!("Say something: ");
+        io::stdin()
+            .read_line(&mut input)
+            .expect("failed to read line");
+        println!("You said: {}", input);
+    }
+} */
