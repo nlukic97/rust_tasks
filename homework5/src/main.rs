@@ -8,22 +8,24 @@ fn main() {
     let mut input = String::new();
     read_input(&mut input);
 
-    let mut arg = String::new();
+    let arg_wrapped = get_argument();
 
-    match get_argument() {
-        Ok(value) => arg = value,
-        Err(error) => println!("Error: {}", error),
+    if arg_wrapped.is_err() {
+        return println!("Error: {}", arg_wrapped.unwrap_err());
     }
 
-    let updated_input = update_input(input.clone(), arg);
-
-    println!("{updated_input}");
+    match format_input(input, arg_wrapped.unwrap()) {
+        Ok(value) => println!("{value}"),
+        Err(error) => println!("Error: {}", error),
+    }
 }
 
+/// Used to read the user input, will assign it to the mutable variable input
 fn read_input(mut input: &mut String) {
     io::stdin().read_line(&mut input).unwrap();
 }
 
+/// get argument - meant to fetch the first argument submitted by the user. Returns an error if the first argument is not there
 fn get_argument() -> Result<String, &'static str> {
     let args: Vec<String> = env::args().collect();
     if args.len() <= 1 {
@@ -33,43 +35,29 @@ fn get_argument() -> Result<String, &'static str> {
     return Ok(arg.clone());
 }
 
-fn update_input(mut input: String, arg: String) -> String {
-    if arg == "lowercase" {
-        input = input.to_lowercase();
-    } else if arg == "uppercase" {
-        input = input.to_uppercase();
-    } else if arg == "no-spaces" {
-        input = input.replace(" ", "");
-    } else if arg == "slugify" {
-        input = slugify(input);
-    } else if arg == "mixup" {
-        let mut new_string = String::new();
+/// takes an input string, the argument supplied, and returns the string formatted in the desired way. Or returns an error if argument is not found.
+fn format_input(input: String, arg: String) -> Result<String, &'static str> {
+    match arg.as_str() {
+        "lowercase" => return Ok(input.to_lowercase()),
+        "uppercase" => return Ok(input.to_uppercase()),
+        "no-spaces" => return Ok(input.replace(" ", "")),
+        "slugify" => return Ok(slugify(input)),
+        "urgent-message" => return Ok(format!("Urgent message: {} !!!", &input.to_uppercase().trim())),
 
-        for mut char in input.chars() {
-            if char.is_lowercase() {
-                char.make_ascii_uppercase();
-            } else if char.is_uppercase() {
-                char.make_ascii_lowercase();
+        "mixup" => {
+            let mut new_string = String::new();
+
+            for mut char in input.chars() {
+                if char.is_lowercase() {
+                    char.make_ascii_uppercase();
+                } else if char.is_uppercase() {
+                    char.make_ascii_lowercase();
+                }
+                new_string.push(char);
             }
-            new_string.push(char);
+
+            return Ok(new_string);
         }
-
-        input = new_string;
-    } else if arg == "urgent-message" {
-        input = format!("Urgent message: {} !!!", &input.to_uppercase().trim());
-    }
-
-    return input;
+        &_ => return Err("Argument not found. Valid arguments: |lowercase|uppercase|no-spaces|slugify|urgent-message|mixup|"),
+    };
 }
-
-/* fn main() {
-    let mut text = String::from("This is a string");
-
-    update_str(&mut text);
-
-    println!("Updated: {text}");
-}
-
-fn update_str(text: &mut String) {
-    *text = text.to_lowercase();
-} */
