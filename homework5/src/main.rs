@@ -1,13 +1,14 @@
 use slug::slugify;
 use std::env;
 use std::io;
+use std::io::Read;
 
 fn main() {
     eprintln!("Please submit your string input:");
 
     let mut input = String::new();
-    // read_multi_line(input); // testing
-
+    /* read_multi_line(input); // testing
+    return; */
     read_input(&mut input);
 
     // TODO - format this
@@ -70,12 +71,19 @@ fn format_input(input: String, arg: String) -> Result<String, &'static str> {
 }
 
 // testing
-/* fn read_multi_line(mut input: String) {
-    while input != "end\n" {
+fn read_multi_line(mut input: String) {
+    while input != "end" {
+        let mut string = String::new();
+
         println!("Say something: ");
+
         io::stdin()
-            .read_line(&mut input)
+            .read_line(&mut string)
             .expect("failed to read line");
+
+        let string = string.trim();
+        input = input + string;
+
         println!("You said: {}", input);
     }
-} */
+}
