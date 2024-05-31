@@ -45,12 +45,12 @@ fn get_argument() -> Result<String, &'static str> {
 
 /// takes an input string, the argument supplied, and returns the string formatted in the desired way. Or returns an error if argument is not found.
 fn format_input(input: String, arg: String) -> Result<String, &'static str> {
-    match arg.as_str() {
-        "lowercase" => return Ok(input.to_lowercase()),
-        "uppercase" => return Ok(input.to_uppercase()),
-        "no-spaces" => return Ok(input.replace(" ", "")),
-        "slugify" => return Ok(slugify(input)),
-        "urgent-message" => return Ok(format!("Urgent message: {} !!!", &input.to_uppercase().trim())),
+    return match arg.as_str() {
+        "lowercase" => Ok(input.to_lowercase()),
+        "uppercase" => Ok(input.to_uppercase()),
+        "no-spaces" => Ok(input.replace(" ", "")),
+        "slugify" => Ok(slugify(input)),
+        "urgent-message" => Ok(format!("Urgent message: {} !!!", &input.to_uppercase().trim())),
 
         "mixup" => {
             let mut new_string = String::new();
@@ -66,7 +66,7 @@ fn format_input(input: String, arg: String) -> Result<String, &'static str> {
 
             return Ok(new_string);
         }
-        &_ => return Err("Argument not found. Valid arguments: |lowercase|uppercase|no-spaces|slugify|urgent-message|mixup|"),
+        &_ => Err("Argument not found. Valid arguments: |lowercase|uppercase|no-spaces|slugify|urgent-message|mixup|"),
     };
 }
 
