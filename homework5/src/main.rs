@@ -7,8 +7,8 @@ fn main() {
     eprintln!("Please submit your string input:");
 
     let mut input = String::new();
-    /* read_multi_line(input); // testing
-    return; */
+    read_multi_line(input); // testing
+    return;
     read_input(&mut input);
 
     // TODO - format this
@@ -72,18 +72,35 @@ fn format_input(input: String, arg: String) -> Result<String, &'static str> {
 
 // testing
 fn read_multi_line(mut input: String) {
-    while input != "end" {
-        let mut string = String::new();
+    /* Data like this could work: */
+    /*
+    name,age
+    John,24
+    Alice,26
+    Markus,28
+    ;
 
-        println!("Say something: ");
+    */
+    // the last clean line as well must be there
+    println!("Say something: ");
+
+    let mut input_finished = false;
+    while input_finished == false {
+        let mut string = String::new();
 
         io::stdin()
             .read_line(&mut string)
             .expect("failed to read line");
 
-        let string = string.trim();
-        input = input + string;
+        input = input + &string;
 
-        println!("You said: {}", input);
+        if string.trim().ends_with(';') {
+            input_finished = true;
+            input = input.replace(';', "");
+        }
+
+        println!("You input:");
+        println!("{}", input);
+        println!("--------------------------------");
     }
 }
