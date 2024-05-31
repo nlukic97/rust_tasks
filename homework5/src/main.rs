@@ -7,8 +7,8 @@ fn main() {
     eprintln!("Please submit your string input:");
 
     let mut input = String::new();
-    read_multi_line(input); // testing
-    return;
+    /* read_multi_line(input); // testing
+    return; */
     read_input(&mut input);
 
     // TODO - format this
